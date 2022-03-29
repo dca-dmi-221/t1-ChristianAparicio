@@ -135,6 +135,7 @@ function setup() {
   createCanvas(1400, 900);
   playlist = 0;
   confessions = new Pantalla({
+    textColorSongs: "#000",
     background: "backgrounds/confessions.png",
     buttonPause: "backgrounds/botonPause.png",
     buttonPlay: "backgrounds/botonPlay.png",
@@ -143,6 +144,7 @@ function setup() {
   })
 
   mean = new Pantalla({
+    textColorSongs: "#fff",
     background: "backgrounds/mean.png",
     buttonPause: "backgrounds/botonPause.png",
     buttonPlay: "backgrounds/botonPlay.png",
@@ -151,6 +153,7 @@ function setup() {
   })
 
   freaky = new Pantalla({
+    textColorSongs: "#000",
     background: "backgrounds/freaky.png",
     buttonPause: "backgrounds/botonPause.png",
     buttonPlay: "backgrounds/botonPlay.png",
@@ -159,6 +162,7 @@ function setup() {
   })
 
   speak = new Pantalla({
+    textColorSongs: "#000",
     background: "backgrounds/speak.png",
     buttonPause: "backgrounds/botonPause.png",
     buttonPlay: "backgrounds/botonPlay.png",
@@ -191,15 +195,27 @@ function mouseClicked() {
 
   if (dist(mouseX, mouseY, 114, 684) < 100) {
     playlist = 1;
+    freaky.stopPlaylist();
+    speak.stopPlaylist();
+    confessions.stopPlaylist();
   }
   if (dist(mouseX, mouseY, 421, 684) < 100) {
     playlist = 2;
+    speak.stopPlaylist();
+    mean.stopPlaylist();
+    confessions.stopPlaylist();
   }
   if (dist(mouseX, mouseY, 720, 684) < 100) {
     playlist = 0;
+    mean.stopPlaylist();
+    freaky.stopPlaylist();
+    speak.stopPlaylist();
   }
   if (dist(mouseX, mouseY, 1026, 684) < 100) {
     playlist = 3;
+    mean.stopPlaylist();
+    freaky.stopPlaylist();
+    confessions.stopPlaylist();
   }
 
   switch (playlist) {
@@ -216,4 +232,10 @@ function mouseClicked() {
       speak.mouseClicked();
       break;
   }
+}
+function mouseDragged(){
+  freaky.mouseDragged();
+  mean.mouseDragged();
+  speak.mouseDragged();
+ confessions.mouseDragged();
 }

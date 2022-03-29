@@ -4,7 +4,8 @@ class Song {
         movie,
         x,
         y,
-        location
+        location,
+        textColor
     }) {
         this.name = name;
         this.movie = movie;
@@ -12,6 +13,7 @@ class Song {
         this.y = y;
         this.location = location;
         this.audio = createAudio(location);
+        this.textColor= textColor
 
     }
     getName(){
@@ -28,8 +30,11 @@ class Song {
     }
     draw() {
         textAlign(LEFT);
+        fill(color(this.textColor));
         textSize(14);
-        text(this.name, this.x, this.y + 50);
+        textWrap(WORD);
+        textAlign(LEFT);
+        text(this.name, this.x, this.y + 35, 120);
         /*if (dist(mouseX, mouseY, this.x, this.y) < 60 && mouseIsPressed) {
             this.playSong();
         }*/

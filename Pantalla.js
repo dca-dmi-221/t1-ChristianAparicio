@@ -5,6 +5,7 @@ class Pantalla {
         buttonPause,
         buttonPlay,
         colorText,
+        textColorSongs,
     }) {
         this.background = background;
         this.songs = songs;
@@ -24,6 +25,7 @@ class Pantalla {
             const posY = id > 2 ? 2 : 1
             const posX = id > 2 ? id - 3 : id
             const newSong = new Song({
+                textColor: textColorSongs,
                 name: item.name.toUpperCase(),
                 movie: item.movie,
                 location: item.location,
@@ -35,22 +37,22 @@ class Pantalla {
         this.selectedSong = this.songCards[0];
         this.isPlaying= false;
 
+        this.sliderSong= new Slider({type: "song", color:"#d31b67", duration:this.selectedSong.getAudio().duration()})
+this.sliderVolume= newSlider({type: "volume"});
     }
     draw() {
         imageMode(CORNER);
         image(this.bgImage, 0, 0);
-        if (mouseIsPressed) {
-            console.log(this.selectedSong);
-        }
+       
         this.songCards.forEach((song) => {
             song.draw();
             if (dist(mouseX, mouseY, song.getX(), song.getY()) < 60 && mouseIsPressed) {
                 this.selectedSong.stopSong();
                 this.isPlaying= false;
                 this.button.setIsPlaying(this.isPlaying);
-                console.log(this.isPlaying);
-                console.log("Boton: "+this.button.isPlaying);
+                
                 this.selectedSong = song;
+                this.sliderSong.setDuration(this.selectedSong.getAudio().duration());
             
             }
 
@@ -60,6 +62,8 @@ class Pantalla {
         fill(this.colorText);
         text(this.selectedSong.getName(), 977, 367);
         this.button.draw();
+
+        this.sliderSong.draw(this.selectedSong.getAudio().time(),this.selectedSong.getAudio().duration());
         
     }
     mouseClicked(){
@@ -73,5 +77,14 @@ class Pantalla {
             this.isPlaying= !this.isPlaying;
             this.button.setIsPlaying(this.isPlaying);
         }
+    }
+    stopPlaylist(){
+        this.selectedSong.stopSong();
+        this.isPlaying= false;
+        this.button.setIsPlaying(this.isPlaying);
+    }
+
+    mouseDragged(){
+        this.sliderSong.mouseDragged(this.selectedSong.getAudio())
     }
 }
