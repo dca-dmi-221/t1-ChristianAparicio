@@ -13,7 +13,7 @@ class Pantalla {
         this.songCards = [];
         this.buttonPause = buttonPause;
         this.buttonPlay = buttonPlay;
-        this.colorText=colorText;
+        this.colorText = colorText;
         this.button = new Button({
             x: 968,
             y: 520,
@@ -32,59 +32,105 @@ class Pantalla {
                 x: (posX + 1) * 200,
                 y: (230 * posY) + 70,
             })
+            newSong.setVolume(0.5)
             this.songCards.push(newSong);
         });
         this.selectedSong = this.songCards[0];
-        this.isPlaying= false;
+        this.isPlaying = false;
 
-        this.sliderSong= new Slider({type: "song", color:"#d31b67", duration:this.selectedSong.getAudio().duration()})
-this.sliderVolume= new Slider({type: "volume"});
+        this.sliderSong = new Slider({
+            type: "song",
+            color: "#d31b67",
+        })
+        this.sliderVolume = new Slider({
+            type: "volume",
+            color: "#d31b67"
+        });
+
     }
     draw() {
         imageMode(CORNER);
         image(this.bgImage, 0, 0);
-       
+
         this.songCards.forEach((song) => {
             song.draw();
-            if (dist(mouseX, mouseY, song.getX(), song.getY()) < 60 && mouseIsPressed) {
-                this.selectedSong.stopSong();
-                this.isPlaying= false;
-                this.button.setIsPlaying(this.isPlaying);
-                
-                this.selectedSong = song;
-                this.sliderSong.setDuration(this.selectedSong.getAudio().duration());
-            
-            }
-
         })
+
         textAlign(CENTER);
         textSize(20);
         fill(this.colorText);
         text(this.selectedSong.getName(), 977, 367);
         this.button.draw();
 
-        this.sliderSong.draw(this.selectedSong.getAudio().time(),this.selectedSong.getAudio().duration());
-        
+        this.sliderSong.draw(this.selectedSong.getAudio().time(), this.selectedSong.getAudio().duration());
+
+        this.sliderVolume.draw();
+
     }
-    mouseClicked(){
-        if(dist(mouseX, mouseY, this.button.getX(), this.button.getY()) < 60){
-    
-            if(!this.isPlaying){
+    mouseClicked() {
+        if (dist(mouseX, mouseY, this.button.getX(), this.button.getY()) < 60) {
+
+            if (!this.isPlaying) {
                 this.selectedSong.playSong()
-            }else{
+            } else {
                 this.selectedSong.pauseSong()
             }
-            this.isPlaying= !this.isPlaying;
+            this.isPlaying = !this.isPlaying;
             this.button.setIsPlaying(this.isPlaying);
         }
+        this.songCards.forEach((song) => {
+            song.draw();
+            if (dist(mouseX, mouseY, song.getX(), song.getY()) < 60) {
+                this.selectedSong.stopSong();
+                this.isPlaying = false;
+                this.button.setIsPlaying(this.isPlaying);
+
+                this.selectedSong = song;
+                this.selectedSong.setVolume(this.sliderVolume.getVolume());
+            }
+
+        })
+        if (dist(mouseX, mouseY, 1057, 520) < 20) {
+            this.changeNextSong();
+        }
+        if (dist(mouseX, mouseY, 880, 520) < 20) {
+            this.changePreviousSong();
+        }
     }
-    stopPlaylist(){
+    stopPlaylist() {
         this.selectedSong.stopSong();
-        this.isPlaying= false;
+        this.isPlaying = false;
         this.button.setIsPlaying(this.isPlaying);
     }
 
-    mouseDragged(){
-        this.sliderSong.mouseDragged(this.selectedSong.getAudio())
+    mouseDragged() {
+        this.sliderSong.mouseDragged(this.selectedSong.getAudio());
+        this.sliderVolume.mouseDragged(this.selectedSong.getAudio());
+
+    }
+    changeNextSong() {
+        this.selectedSong.stopSong();
+        const currentSong = this.songCards.indexOf(this.selectedSong)
+        if (this.songCards.length - 1 === currentSong) {
+            this.selectedSong = this.songCards[0];
+        } else {
+            this.selectedSong = this.songCards[currentSong + 1];
+        }
+        if (this.isPlaying) {
+            this.selectedSong.playSong();
+        }
+    }
+    changePreviousSong() {
+        this.selectedSong.stopSong();
+        const currentSong = this.songCards.indexOf(this.selectedSong)
+        if (currentSong === 0) {
+            this.selectedSong = this.songCards[this.songCards.length - 1];
+        } else {
+            this.selectedSong = this.songCards[currentSong - 1];
+        }
+        if (this.isPlaying) {
+            this.selectedSong.playSong();
+        }
+
     }
 }
