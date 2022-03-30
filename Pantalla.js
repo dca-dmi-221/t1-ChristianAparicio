@@ -32,7 +32,8 @@ class Pantalla {
                 x: (posX + 1) * 200,
                 y: (230 * posY) + 70,
             })
-            newSong.setVolume(0.5)
+            newSong.setVolume(0.5);
+            newSong.getAudio().onended(()=> this.changeNextSong());
             this.songCards.push(newSong);
         });
         this.selectedSong = this.songCards[0];
