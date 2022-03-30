@@ -38,7 +38,7 @@ class Pantalla {
         this.isPlaying= false;
 
         this.sliderSong= new Slider({type: "song", color:"#d31b67", duration:this.selectedSong.getAudio().duration()})
-this.sliderVolume= newSlider({type: "volume"});
+this.sliderVolume= new Slider({type: "volume"});
     }
     draw() {
         imageMode(CORNER);
