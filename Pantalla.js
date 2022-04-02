@@ -6,6 +6,7 @@ class Pantalla {
         buttonPlay,
         colorText,
         textColorSongs,
+        sliderColor,
     }) {
         this.background = background;
         this.songs = songs;
@@ -14,6 +15,7 @@ class Pantalla {
         this.buttonPause = buttonPause;
         this.buttonPlay = buttonPlay;
         this.colorText = colorText;
+        this.sliderColor= sliderColor;
         this.button = new Button({
             x: 968,
             y: 520,
@@ -41,11 +43,11 @@ class Pantalla {
 
         this.sliderSong = new Slider({
             type: "song",
-            color: "#d31b67",
+            color: this.sliderColor,
         })
         this.sliderVolume = new Slider({
             type: "volume",
-            color: "#d31b67"
+            color: this.sliderColor
         });
 
     }

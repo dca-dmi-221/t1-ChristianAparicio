@@ -140,16 +140,18 @@ function setup() {
     buttonPause: "backgrounds/botonPause.png",
     buttonPlay: "backgrounds/botonPlay.png",
     songs: confessionsSongs,
-    colorText: 0
+    colorText: 0,
+    sliderColor: "#51aa2b",
   })
 
   mean = new Pantalla({
     textColorSongs: "#fff",
     background: "backgrounds/mean.png",
-    buttonPause: "backgrounds/botonPause.png",
-    buttonPlay: "backgrounds/botonPlay.png",
+    buttonPause: "backgrounds/pinkbotonPause.png",
+    buttonPlay: "backgrounds/pinkbotonPlay.png",
     songs: meanSongs,
-    colorText: 0
+    colorText: 0,
+    sliderColor: "#d31b67",
   })
 
   freaky = new Pantalla({
@@ -158,16 +160,18 @@ function setup() {
     buttonPause: "backgrounds/botonPause.png",
     buttonPlay: "backgrounds/botonPlay.png",
     songs: freakySongs,
-    colorText: 0
+    colorText: 0,
+    sliderColor: "#51aa2b",
   })
 
   speak = new Pantalla({
     textColorSongs: "#000",
     background: "backgrounds/speak.png",
-    buttonPause: "backgrounds/botonPause.png",
-    buttonPlay: "backgrounds/botonPlay.png",
+    buttonPause: " backgrounds/blackbotonPause.png",
+    buttonPlay: "backgrounds/blackbotonPlay.png",
     songs: speakSongs,
-    colorText: 255
+    colorText: 255,
+    sliderColor: "#d31b67",
   })
 
 }
