@@ -62,6 +62,11 @@ const meanSongs = [{
     movie: "Mean Girls",
     location: "Mean/Overdrive.mp3",
   },
+  {
+    name: "Beautiful",
+    movie: "Mean Girls",
+    location: "Mean/christina-aguilera-beautiful-official-video.mp3",
+  },
 ];
 
 const freakySongs = [{
@@ -86,8 +91,13 @@ const freakySongs = [{
   },
   {
     name: "Ultimate",
-    movie: "Ultimate",
+    movie: "freaky friday",
     location: "Freaky/ultimate-from-freaky-fridaysoundtrack-version.mp3",
+  },
+  {
+    name: "Take me away",
+    movie: "freaky friday",
+    location: "Freaky/take-me-away-freaky-friday-sub-espanol.mp3",
   },
 
 ];
