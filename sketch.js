@@ -248,6 +248,7 @@ function mouseClicked() {
     confessions.stopPlaylist();
     myPlaylist.stopPlaylist();
     mean.stopPlaylist();
+    myPlaylist.stopPlaylist();
   }
 
   if (dist(mouseX, mouseY, 114, 684) < 100) {
@@ -255,24 +256,28 @@ function mouseClicked() {
     freaky.stopPlaylist();
     speak.stopPlaylist();
     confessions.stopPlaylist();
+    myPlaylist.stopPlaylist();
   }
   if (dist(mouseX, mouseY, 421, 684) < 100) {
     playlist = 2;
     speak.stopPlaylist();
     mean.stopPlaylist();
     confessions.stopPlaylist();
+    myPlaylist.stopPlaylist();
   }
   if (dist(mouseX, mouseY, 720, 684) < 100) {
     playlist = 0;
     mean.stopPlaylist();
     freaky.stopPlaylist();
     speak.stopPlaylist();
+    myPlaylist.stopPlaylist();
   }
   if (dist(mouseX, mouseY, 1026, 684) < 100) {
     playlist = 3;
     mean.stopPlaylist();
     freaky.stopPlaylist();
     confessions.stopPlaylist();
+    myPlaylist.stopPlaylist();
   }
 
   switch (playlist) {
