@@ -7,7 +7,10 @@ class Pantalla {
         colorText,
         textColorSongs,
         sliderColor,
+        customPlaylist,
+        hideButtons,
     }) {
+        this.customPlaylist = customPlaylist;
         this.background = background;
         this.songs = songs;
         this.bgImage = loadImage(background);
@@ -15,13 +18,14 @@ class Pantalla {
         this.buttonPause = buttonPause;
         this.buttonPlay = buttonPlay;
         this.colorText = colorText;
-        this.sliderColor= sliderColor;
+        this.sliderColor = sliderColor;
         this.button = new Button({
             x: 968,
             y: 520,
             imagePause: buttonPause,
             imagePlay: buttonPlay
         });
+        this.hideButtons = hideButtons;
 
         this.songs.forEach((item, id) => {
             const posY = id > 2 ? 2 : 1
@@ -35,7 +39,7 @@ class Pantalla {
                 y: (230 * posY) + 70,
             })
             newSong.setVolume(0.5);
-            newSong.getAudio().onended(()=> this.changeNextSong());
+            newSong.getAudio().onended(() => this.changeNextSong());
             this.songCards.push(newSong);
         });
         this.selectedSong = this.songCards[0];
@@ -49,6 +53,21 @@ class Pantalla {
             type: "volume",
             color: this.sliderColor
         });
+
+        this.addButton = new TextButton({
+            text: "+ Add to playlist",
+            color: this.sliderColor,
+            x: 811,
+            y: 565,
+        });
+
+        this.myPlaylist = new TextButton({
+            text: "My playlist",
+            color: this.sliderColor,
+            x: 977,
+            y: 565,
+        });
+
 
     }
     draw() {
@@ -68,7 +87,10 @@ class Pantalla {
         this.sliderSong.draw(this.selectedSong.getAudio().time(), this.selectedSong.getAudio().duration());
 
         this.sliderVolume.draw();
-
+        if (!this.hideButtons) {
+            this.addButton.draw();
+            this.myPlaylist.draw();
+        }
     }
     mouseClicked() {
         if (dist(mouseX, mouseY, this.button.getX(), this.button.getY()) < 60) {
@@ -98,6 +120,9 @@ class Pantalla {
         }
         if (dist(mouseX, mouseY, 880, 520) < 20) {
             this.changePreviousSong();
+        }
+        if (this.addButton.validateMouseClick()) {
+            this.addToPlaylist();
         }
     }
     stopPlaylist() {
@@ -135,5 +160,19 @@ class Pantalla {
             this.selectedSong.playSong();
         }
 
+    }
+
+    validatePlaylistButton() {
+        return this.myPlaylist.validateMouseClick();
+    }
+
+    addToPlaylist() {
+        const currentSong = this.songCards.indexOf(this.selectedSong)
+        if (!(this.customPlaylist.includes(this.songs[currentSong]))) {
+            if (this.customPlaylist.length === 6) {
+                this.customPlaylist.shift();
+            }
+            this.customPlaylist.push(this.songs[currentSong]);
+        }
     }
 }

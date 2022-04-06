@@ -18,9 +18,7 @@ class Slider {
         this.bolaX = 961;
         this.bolaY = 415 + (this.height / 2) + 25
         this.volume = 0.5;
-
     }
-
     draw(time, duration) {
         rectMode(CORNER);
         noStroke();
@@ -36,7 +34,6 @@ class Slider {
             text(this.formatTime(time), this.x, this.y - 15);
             text(this.formatTime(duration), this.x + this.width, this.y - 15);
         }
-
         if (this.type === "volume") {
             fill(this.color);
             ellipse(this.bolaX, this.bolaY, 12);

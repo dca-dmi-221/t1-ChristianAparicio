@@ -2,7 +2,13 @@ let confessions;
 let mean;
 let freaky;
 let speak;
+let myPlaylist;
 let playlist;
+let myPlaylistSongs = [   {
+  name: "That Girl",
+  movie: "Confessions of a teenage drama queen",
+  location: "Confessions/lindsay-lohan-confessions-of-a-teenage-drama-queen-song.mp3"
+},];
 
 const confessionsSongs = [{
     name: "Walking on Sunshine",
@@ -152,6 +158,7 @@ function setup() {
     songs: confessionsSongs,
     colorText: 0,
     sliderColor: "#51aa2b",
+    customPlaylist: myPlaylistSongs,
   })
 
   mean = new Pantalla({
@@ -162,6 +169,7 @@ function setup() {
     songs: meanSongs,
     colorText: 0,
     sliderColor: "#d31b67",
+    customPlaylist: myPlaylistSongs,
   })
 
   freaky = new Pantalla({
@@ -172,6 +180,7 @@ function setup() {
     songs: freakySongs,
     colorText: 0,
     sliderColor: "#51aa2b",
+    customPlaylist: myPlaylistSongs,
   })
 
   speak = new Pantalla({
@@ -182,6 +191,19 @@ function setup() {
     songs: speakSongs,
     colorText: 255,
     sliderColor: "#d31b67",
+    customPlaylist: myPlaylistSongs,
+  })
+
+  myPlaylist = new Pantalla({
+    textColorSongs: "#fff",
+    background: "backgrounds/favoritos.png",
+    buttonPause: " backgrounds/blackbotonPause.png",
+    buttonPlay: "backgrounds/blackbotonPlay.png",
+    songs: myPlaylistSongs,
+    colorText: 0,
+    sliderColor: "#d31b67",
+    customPlaylist: myPlaylistSongs,
+    hideButtons: true,
   })
 
 }
@@ -201,11 +223,32 @@ function draw() {
     case 3:
       speak.draw();
       break;
+      case 4:
+        myPlaylist.draw()
+        break;
   }
 }
 
 function mouseClicked() {
-
+  if(confessions.validatePlaylistButton()){
+    myPlaylist = new Pantalla({
+      textColorSongs: "#fff",
+      background: "backgrounds/favoritos.png",
+      buttonPause: " backgrounds/blackbotonPause.png",
+      buttonPlay: "backgrounds/blackbotonPlay.png",
+      songs: myPlaylistSongs,
+      colorText: 0,
+      sliderColor: "#d31b67",
+      customPlaylist: myPlaylistSongs,
+      hideButtons: true,
+    })
+    playlist = 4;
+    freaky.stopPlaylist();
+    speak.stopPlaylist();
+    confessions.stopPlaylist();
+    myPlaylist.stopPlaylist();
+    mean.stopPlaylist();
+  }
 
   if (dist(mouseX, mouseY, 114, 684) < 100) {
     playlist = 1;
@@ -245,6 +288,9 @@ function mouseClicked() {
     case 3:
       speak.mouseClicked();
       break;
+      case 4:
+        myPlaylist.mouseClicked();
+        break;
   }
 }
 
@@ -253,4 +299,5 @@ function mouseDragged() {
   mean.mouseDragged();
   speak.mouseDragged();
   confessions.mouseDragged();
+  myPlaylist.mouseDragged();
 }
